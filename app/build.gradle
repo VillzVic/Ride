@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+        applicationId "com.vic.villz.ride"
+        minSdkVersion 19
+        targetSdkVersion 28
+        multiDexEnabled true
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation KotlinLibraries.kotlin_version
+    implementation AndroidLibraries.appcompat
+    implementation KotlinLibraries.kotlin_extensions
+    implementation Libraries.firebasecore
+    implementation AndroidLibraries.constraint_layout
+    implementation Libraries.rxjava
+    implementation Libraries.rxandroid
+    implementation Libraries.material
+    implementation Libraries.glide
+    implementation Libraries.rxbindings
+    implementation Libraries.firebaseauth
+    implementation Libraries.firebaseMessaging
+    implementation Libraries.firebaseDatabase
+    implementation Libraries.viewModelAndLiveData
+    implementation Libraries.location
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    testImplementation TestLibraries.junit
+    androidTestImplementation TestLibraries.testRunner
+    androidTestImplementation TestLibraries.espresso
+    kapt Libraries.glideAnnotationProcessor
+}
+apply plugin: 'com.google.gms.google-services'
