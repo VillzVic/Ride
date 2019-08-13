@@ -9,7 +9,6 @@ import com.google.firebase.database.ValueEventListener
 import com.vic.villz.ride.livedata.FirebaseQueryLiveData.MyValueEventListener
 
 
-
 class FirebaseQueryLiveData(var query: Query): LiveData<DataSnapshot>() {
 
     private val listener = MyValueEventListener()

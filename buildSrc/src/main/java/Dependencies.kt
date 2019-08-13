@@ -8,7 +8,7 @@
         val kotlin = "1.3.31"
         val rxjava = "2.2.6"
         val rxandroid = "2.1.1"
-        val appcompat = "1.0.0-beta01"
+        val appcompat = "1.1.0-alpha01"
         val constraints = "1.1.3"
         val junit = "4.12"
         val testRunner = "1.1.0-alpha4"
@@ -24,12 +24,17 @@
         val glide ="4.9.0"
         val lifeCycle ="2.0.0"
         val location= "16.0.0"
+        val legacy = "1.0.0"
+        val maps_play_services = "17.0.0"
+        val geofire = "3.0.0"
     }
 
     object AndroidLibraries {
         val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
         val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
         val constraint_layout = "androidx.constraintlayout:constraintlayout:${Versions.constraints}"
+        val legacy = "androidx.legacy:legacy-support-v4:${Versions.legacy}"
+        val maps_play_services = "com.google.android.gms:play-services-maps:${Versions.maps_play_services}"
     }
 
     object KotlinLibraries {
@@ -58,4 +63,5 @@
         val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
         val glideAnnotationProcessor = "com.github.bumptech.glide:compiler:${Versions.glide}"
         val location = "com.google.android.gms:play-services-location:${Versions.location}"
+        val geofire = "com.firebase:geofire-java:${Versions.geofire}"
     }

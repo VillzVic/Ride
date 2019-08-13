@@ -11,7 +11,7 @@ import com.vic.villz.ride.persistence.UserDetailsSharedPreferences
 import com.vic.villz.ride.services.UserType
 import com.vic.villz.ride.services.showSnack
 import com.vic.villz.ride.viewmodels.LoginViewModel
-import com.vic.villz.ride.viewmodels.RegisterViewModel
+import com.vic.villz.ride.views.activities.driver.DriverMapActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
@@ -55,13 +55,14 @@ class LoginActivity : AppCompatActivity() {
 
             userDetailsPrefs.setUserType(UserType.DRIVER.toString())
         }else{
-            mapIntent = Intent(this@LoginActivity, MapActivity::class.java)
+            mapIntent = Intent(this@LoginActivity, CustomerMapActivity::class.java)
             userDetailsPrefs.setUserType(UserType.USER.toString())
         }
 
 
         mapIntent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(mapIntent)
+        overridePendingTransition(R.anim.activity_enter_anim, R.anim.activity_exit_anim)
 
 
     }
