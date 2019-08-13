@@ -32,10 +32,10 @@
                 android:value="@string/google_maps_key"/>
 
         <activity
-                android:name=".views.activities.DriverMapActivity"
+                android:name=".views.activities.driver.DriverMapActivity"
                 android:label="@string/title_activity_driver_map">
         </activity>
-        <activity android:name=".views.activities.MapActivity">
+        <activity android:name=".views.activities.CustomerMapActivity">
         </activity>
         <activity android:name=".views.activities.LoginActivity">
         </activity>
@@ -43,7 +43,7 @@
         </activity>
         <activity android:name=".views.activities.onboarding.OnboardingActivity">
         </activity>
-        <activity android:name=".views.activities.SplashScreenActivity">
+        <activity android:name=".views.activities.onboarding.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

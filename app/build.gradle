@@ -42,10 +42,9 @@ dependencies {
     implementation Libraries.firebaseDatabase
     implementation Libraries.viewModelAndLiveData
     implementation Libraries.location
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation AndroidLibraries.legacy
+    implementation AndroidLibraries.maps_play_services
+    implementation Libraries.geofire
     testImplementation TestLibraries.junit
     androidTestImplementation TestLibraries.testRunner
     androidTestImplementation TestLibraries.espresso

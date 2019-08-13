@@ -1,4 +1,4 @@
-package com.vic.villz.ride.views.activities
+package com.vic.villz.ride.views.activities.onboarding
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,10 +9,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.vic.villz.ride.R
 import com.vic.villz.ride.persistence.UserDetailsSharedPreferences
 import com.vic.villz.ride.services.UserType
-import com.vic.villz.ride.views.activities.onboarding.OnboardingActivity
+import com.vic.villz.ride.views.activities.driver.DriverMapActivity
+import com.vic.villz.ride.views.activities.CustomerMapActivity
+import com.vic.villz.ride.views.activities.SignUpActivity
 import kotlinx.android.synthetic.main.activity_splash_screen.*
-import java.lang.Thread.sleep
-
 
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -38,7 +38,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 if(userDetailsPrefs.getUserType() == UserType.DRIVER.toString()){
                     navigate(DriverMapActivity::class.java)
                 }else{
-                    navigate(MapActivity::class.java)
+                    navigate(CustomerMapActivity::class.java)
                 }
 
             } else{

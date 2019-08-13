@@ -6,17 +6,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
-import android.widget.ProgressBar
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.snackbar.Snackbar
 import com.vic.villz.ride.R
 import com.vic.villz.ride.persistence.UserDetailsSharedPreferences
 import com.vic.villz.ride.services.UserType
 import com.vic.villz.ride.services.showSnack
 import com.vic.villz.ride.viewmodels.RegisterViewModel
-import kotlinx.android.synthetic.main.activity_login.*
+import com.vic.villz.ride.views.activities.driver.DriverMapActivity
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_up.card_container
 
@@ -38,8 +35,6 @@ class SignUpActivity : AppCompatActivity() {
         setUpClickListeners()
 
         setUpRegisterViewModel()
-
-
 
     }
 
@@ -66,20 +61,19 @@ class SignUpActivity : AppCompatActivity() {
             userDetailsPrefs.setUserType(UserType.DRIVER.toString())
 
         }else{
-            mapIntent = Intent(this@SignUpActivity, MapActivity::class.java)
+            mapIntent = Intent(this@SignUpActivity, CustomerMapActivity::class.java)
             userDetailsPrefs.setUserType(UserType.USER.toString())
         }
 
-
         mapIntent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(mapIntent)
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
     }
 
     private fun setUpClickListeners() {
         login.setOnClickListener {
             moveToLogin()
         }
-
 
         signup_button.setOnClickListener {
             performSignUp()
