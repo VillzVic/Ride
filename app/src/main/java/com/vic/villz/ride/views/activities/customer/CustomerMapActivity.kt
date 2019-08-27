@@ -1,4 +1,4 @@
-package com.vic.villz.ride.views.activities
+package com.vic.villz.ride.views.activities.customer
 
 import android.content.pm.PackageManager
 import android.content.res.Resources
@@ -8,19 +8,16 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.*
 import com.vic.villz.ride.R
 import com.vic.villz.ride.viewmodels.CustomerMapViewModel
-import com.vic.villz.ride.views.activities.customer.CustomerLocationInterface
-import com.vic.villz.ride.views.activities.customer.CustomerLocationManager
-import com.vic.villz.ride.views.activities.driver.location.LocationManager
+import kotlinx.android.synthetic.main.activity_customer_map.*
 
 class CustomerMapActivity : AppCompatActivity(), OnMapReadyCallback,
     CustomerLocationInterface {
@@ -29,7 +26,8 @@ class CustomerMapActivity : AppCompatActivity(), OnMapReadyCallback,
     val LOCATION_PERMISSION = 203
     private lateinit var locationManager: CustomerLocationManager
     private lateinit var customerMapViewModel: CustomerMapViewModel
-
+    var userLocation: Location? = null
+    private var driverMarker: Marker?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,14 +35,39 @@ class CustomerMapActivity : AppCompatActivity(), OnMapReadyCallback,
 
         customerMapViewModel = ViewModelProviders.of(this).get(CustomerMapViewModel::class.java)
 
+
+
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.customer_map) as SupportMapFragment
-
         mapFragment.getMapAsync(this)
 
         locationManager = CustomerLocationManager(this, this)
-
         lifecycle.addObserver(locationManager)
+
+        req_btn.setOnClickListener {
+            makeRequest()
+        }
+
+        observeChanges()
+    }
+
+    private fun observeChanges() {
+        //observe text on button
+        customerMapViewModel.buttonTextLivedata.observe(this, Observer<String> {
+
+            req_btn.text = it
+        })
+
+
+        //this is where you replace the marker with car that moves. since data is updating real-time
+        customerMapViewModel.addDriverLocationMarkerLiveData.observe(this, Observer<LatLng> { latlng->
+            //when the location change, remove the marker(car) and add a new one to the updated location
+            driverMarker?.let {
+                //If driver marker has been added before, then remove it
+               driverMarker?.remove()
+            }
+            driverMarker = mMap.addMarker(MarkerOptions().position(latlng).title("Your driver"))
+        })
     }
 
     override fun onResume() {
@@ -78,6 +101,17 @@ class CustomerMapActivity : AppCompatActivity(), OnMapReadyCallback,
 
     }
 
+    private fun makeRequest(){
+        req_btn.text = "Searching for driver"
+
+        userLocation?.let { loc ->
+            customerMapViewModel.setGeoFireLocation(loc)
+            mMap.addMarker(MarkerOptions().position(LatLng(loc.latitude, loc.longitude)).title("Pickup here"))
+
+            customerMapViewModel.getClosestDriver(loc)
+        }
+    }
+
     private fun checkForPermission() {
 
         if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
@@ -102,7 +136,6 @@ class CustomerMapActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
     fun initMap(){
-
         mMap.isMyLocationEnabled = true
 
         locationManager.getLastLocation()
@@ -120,13 +153,15 @@ class CustomerMapActivity : AppCompatActivity(), OnMapReadyCallback,
             .build()
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, null)
+        location?.let {
+            userLocation = it
+        }
 
     }
 
     override fun OnLocationReceived(location: Location) {
         updateMapLocation(location)
     }
-
 
     companion object {
         private val TAG = CustomerMapActivity::class.java.simpleName

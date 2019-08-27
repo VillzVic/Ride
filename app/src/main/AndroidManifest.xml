@@ -35,7 +35,7 @@
                 android:name=".views.activities.driver.DriverMapActivity"
                 android:label="@string/title_activity_driver_map">
         </activity>
-        <activity android:name=".views.activities.CustomerMapActivity">
+        <activity android:name=".views.activities.customer.CustomerMapActivity">
         </activity>
         <activity android:name=".views.activities.LoginActivity">
         </activity>

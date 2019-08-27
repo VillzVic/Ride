@@ -13,6 +13,7 @@ import com.vic.villz.ride.persistence.UserDetailsSharedPreferences
 import com.vic.villz.ride.services.UserType
 import com.vic.villz.ride.services.showSnack
 import com.vic.villz.ride.viewmodels.RegisterViewModel
+import com.vic.villz.ride.views.activities.customer.CustomerMapActivity
 import com.vic.villz.ride.views.activities.driver.DriverMapActivity
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_up.card_container
