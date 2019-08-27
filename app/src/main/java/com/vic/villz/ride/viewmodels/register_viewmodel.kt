@@ -48,7 +48,7 @@ class RegisterViewModel:ViewModel() {
 
 
     fun storeUsersData(userType:String, userId:String, usersNode:DatabaseReference, username:String){
-        usersNode.child(userType).child(userId).child("username").setValue(username).addOnCompleteListener {
+        usersNode.child(userType).child(userId).child("Profile").child("username").setValue(username).addOnCompleteListener {
             if (it.isSuccessful) {
                 mSuccessLiveData.value = true
             }else{

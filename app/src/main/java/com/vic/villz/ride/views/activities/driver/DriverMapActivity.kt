@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.vic.villz.ride.R
 import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.MarkerOptions
 import com.vic.villz.ride.viewmodels.DriversViewModel
 import com.vic.villz.ride.views.activities.driver.location.LocationInterface
 import com.vic.villz.ride.views.activities.driver.location.LocationManager
@@ -40,11 +42,20 @@ class DriverMapActivity : AppCompatActivity(), OnMapReadyCallback , LocationInte
             .findFragmentById(R.id.map) as SupportMapFragment
 
         locationManager = LocationManager(this, this)
-
         lifecycle.addObserver(locationManager)
-
         mapFragment.getMapAsync(this)
 
+       //get assigned driver
+        driversViewModel.getAssignedCustomer()
+        observeChanges()
+
+    }
+
+    private fun observeChanges() {
+
+        driversViewModel.addPickUpLocationMarkerLiveData.observe(this, Observer<LatLng>{
+            mMap.addMarker(MarkerOptions().position(it).title("Pick up location"))
+        })
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

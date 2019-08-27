@@ -10,7 +10,7 @@ import com.vic.villz.ride.R
 import com.vic.villz.ride.persistence.UserDetailsSharedPreferences
 import com.vic.villz.ride.services.UserType
 import com.vic.villz.ride.views.activities.driver.DriverMapActivity
-import com.vic.villz.ride.views.activities.CustomerMapActivity
+import com.vic.villz.ride.views.activities.customer.CustomerMapActivity
 import com.vic.villz.ride.views.activities.SignUpActivity
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 
